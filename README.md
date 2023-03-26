@@ -83,3 +83,8 @@ nix-env -e '.*'
 stow each directory in the `.dotfiles` directory
 e.g. `$ stow nvim`
 
+## Nvim
+Open nvim and run `:PlugInstall` to install all plugins
+
+## Tmux
+Install tmux plugins with `prefix` + `I` (`CTRL + I`)
