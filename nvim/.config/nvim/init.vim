@@ -106,6 +106,7 @@ Plug 'f3fora/cmp-spell'
 Plug 'tamago324/cmp-zsh'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'williamboman/mason.nvim'
 
 " open lazygit in a floating window
 Plug 'kdheepak/lazygit.nvim'
@@ -140,7 +141,7 @@ lua require('dap-debug')
 lua require('go').setup()
 lua require('navigator').setup({lsp={ disable_lsp = {'gopls'}, disply_diagnostic_qf = false }, treesitter_analysis = false})
 lua require('telescope-plug')
-
+lua require("mason").setup()
 " allows you to select multiple lines in visual mode
 " and perform a macro on all of them at the same time
 function! ExecuteMacroOverVisualRange()
@@ -308,4 +309,3 @@ require "octo".setup({
     }
 })
 EOF
-
