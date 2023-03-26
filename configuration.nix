@@ -104,8 +104,10 @@ in
     zsh
     watch 
     thefuck
+    nodejs
+    nodePackages.vscode-html-languageserver-bin
     (nerdfonts.override {
-      fonts = [ "FiraCode" ];
+      fonts = [ "FiraCode" "Hack" ];
     })
   ];
 
