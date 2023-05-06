@@ -147,4 +147,13 @@ return {
   -- debugger configuration for go
   { "leoluz/nvim-dap-go" },
   { "ruanyl/vim-gh-line" },
+
+  { -- the default blue for todo's is a little garish
+    "folke/todo-comments.nvim",
+    opts = {
+      keywords = {
+        TODO = { icon = " ", color = "hint" },
+      },
+    },
+  },
 }
