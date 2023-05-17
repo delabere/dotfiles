@@ -88,3 +88,13 @@ Open nvim and run `:PlugInstall` to install all plugins
 
 ## Tmux
 Install tmux plugins with `prefix` + `I` (`CTRL + I`)
+
+
+# Experimental new nix flakes installation
+- install nix
+- enable experimental feature - flakes
+install stow
+run `stow home-manager`
+run `home-manager switch`
+uninstall stow
+
