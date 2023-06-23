@@ -212,4 +212,8 @@ return {
       },
     },
   },
+
+  {
+    "axkirillov/telescope-changed-files",
+  },
 }
