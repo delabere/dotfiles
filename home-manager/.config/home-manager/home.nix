@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
-
+let
+user = builtins.getEnv "USER";
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "delabere";
-  home.homeDirectory = "/Users/delabere";
+  home.username = "jackrickards";
+  home.homeDirectory = "/Users/jackrickards";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -91,6 +93,10 @@
             [ ! -f "$HOME/notes/$1.md" ] && touch "$HOME/notes/$1.md"
             nvim "$HOME/notes/$1.md"
         }
+
+        function gitprune() {
+          git fetch --all -p; git branch -vv | grep ": gone]" | awk '{ print $1 }' | xargs -n 1 git branch -D
+        }
         
         alias lg='lazygit'
         alias gcm='git checkout master && git pull'
@@ -107,19 +113,22 @@
         if [ -f '/Users/delabere/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/delabere/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
        
         
-        # work related stuff
-        s101 () {
-          shipper deploy --s101 $1 --disable-progressive-rollouts
-        }
-
-        prod () {
-          shipper deploy --prod $1
-        }
       '';
 
       envExtra = ''
         # work configuration
         [ -f $HOME/src/github.com/monzo/starter-pack/zshenv ] && source $HOME/src/github.com/monzo/starter-pack/zshenv
+
+        JAVA_HOME=$(/usr/libexec/java_home -v 19)
+        
+        # work related stuff
+        s101 () {
+          shipper deploy --s101 $1
+        }
+
+        prod () {
+          shipper deploy --prod $1
+        }
       '';
     };
 
