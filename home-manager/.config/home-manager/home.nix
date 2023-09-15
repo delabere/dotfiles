@@ -100,10 +100,15 @@ in
             nvim "$HOME/notes/$1.md"
         }
         
-        # for maintaining a simple braglist
+        # for maintaining and reading a simple braglist
         function brag() {
             [ ! -f "$HOME/brag.md" ] && touch "$HOME/brag.md"
-            echo "$(date) | $1" >> $HOME/brag.md
+            if [[ -z $1 ]]
+            then
+              cat $HOME/brag.md
+            else 
+              echo "$(date +%d/%m/%Y) | $1" >> $HOME/brag.md
+            fi
         }
 
         function gitprune() {
