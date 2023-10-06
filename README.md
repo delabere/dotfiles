@@ -11,6 +11,13 @@ add the following to `/etc/nix/nix.conf`
 ## install stow
 `brew install stow` - other package managers are available
 
+or 
+
+```
+sudo apt-get update -y
+sudo apt-get install -y stow
+```
+
 ## setting up Tmux
 `tmux` - open tmux
 `tmux source ~/.tmux.conf` - load config

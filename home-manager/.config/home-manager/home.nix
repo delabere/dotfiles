@@ -60,6 +60,8 @@ in
     pkgs.nodejs
     pkgs.niv
     pkgs.delve
+    pkgs.docker
+    pkgs.docker-compose
     pkgs.nodePackages.vscode-html-languageserver-bin
     (pkgs.nerdfonts.override {
       fonts = [ "FiraCode" "Hack" ];
