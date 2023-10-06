@@ -110,6 +110,17 @@ in
               echo "$(date +%d/%m/%Y) | $1" >> $HOME/brag.md
             fi
         }
+        
+        # for maintaining and reading a simple learnlist
+        function learnit() {
+            [ ! -f "$HOME/learnit.txt" ] && touch "$HOME/learnit.txt"
+            if [[ -z $1 ]]
+            then
+              cat $HOME/learnit.txt
+            else 
+              echo "$(date +%d/%m/%Y) | $1" >> $HOME/learnit.txt
+            fi
+        }
 
         function gitprune() {
           git fetch --all -p; git branch -vv | grep ": gone]" | awk '{ print $1 }' | xargs -n 1 git branch -D
@@ -117,6 +128,10 @@ in
         
         alias lg='lazygit'
         alias gcm='git checkout master && git pull'
+
+        # this one let's me pull all my changes back into the index so I can structure my commits on a more complex
+        # pr more easily
+        alias reset-commits='git reset --soft $(git merge-base master HEAD)'
 
         # for pyenv
         export PYENV_ROOT="$HOME/.pyenv"
@@ -141,6 +156,11 @@ in
         # work related stuff
         s101 () {
           shipper deploy --s101 $1
+        }
+
+        shipthis () {
+          branch=$(eval "git rev-parse --symbolic-full-name --abbrev-ref HEAD")
+          shipper deploy --s101 $branch
         }
 
         prod () {
