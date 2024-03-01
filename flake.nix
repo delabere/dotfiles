@@ -60,6 +60,17 @@
               }
           )
           homeConfigurations;
+
+        tmux-jump = pkgs.tmuxPlugins.mkTmuxPlugin {
+          pluginName = "tmux-jump";
+          version = "2024-02";
+          src = pkgs.fetchFromGitHub {
+            owner = "schasse";
+            repo = "tmux-jump";
+            rev = "2ff4940f043cd4ad80fa25c6efa33063fb3b386b";
+            sha256 = "sha256-zgFQKQgESThZGoLRjqZGjxeu/C0HMduUOr7jcgELM7s=";
+          };
+        };
       }
     );
 }

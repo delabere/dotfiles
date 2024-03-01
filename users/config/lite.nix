@@ -5,7 +5,18 @@
   session-x,
   system,
   ...
-}: {
+}: let
+  tmux-jump = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux-jump";
+    version = "2024-02";
+    src = pkgs.fetchFromGitHub {
+      owner = "schasse";
+      repo = "tmux-jump";
+      rev = "2ff4940f043cd4ad80fa25c6efa33063fb3b386b";
+      sha256 = "sha256-zgFQKQgESThZGoLRjqZGjxeu/C0HMduUOr7jcgELM7s=";
+    };
+  };
+in {
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -95,11 +106,13 @@
       terminal = "screen-256color";
 
       plugins = with pkgs; [
-        tmuxPlugins.vim-tmux-navigator
-        tmuxPlugins.power-theme
-        tmuxPlugins.resurrect
-        tmuxPlugins.continuum
         session-x.packages.${system}.default
+        tmuxPlugins.continuum
+        tmuxPlugins.power-theme
+        tmuxPlugins.prefix-highlight
+        tmuxPlugins.resurrect
+        tmuxPlugins.vim-tmux-navigator
+        tmux-jump.version
       ];
 
       extraConfig = ''
