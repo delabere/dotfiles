@@ -10,11 +10,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1708464375,
-        "narHash": "sha256-LfUZdsnhoKPW1PHA3ya6FYcxYNIV93tcMFuS+mZVQLE=",
+        "lastModified": 1709331250,
+        "narHash": "sha256-0YJGyH3FWi31rtvOS8TsK1d40/pkk5+Hh3JhHFbRA1g=",
         "owner": "delabere",
         "repo": "brag",
-        "rev": "123b3a1dd6248c29d8d062221f63c35fb5cb7dde",
+        "rev": "ffe652ce4feec22a2b7d31083cb258a4ff64a10a",
         "type": "github"
       },
       "original": {
