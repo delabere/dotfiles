@@ -14,24 +14,29 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+    tmux-jump = {
+      url = "github:schasse/tmux-jump";
+      flake = false;
+    };
     session-x = {
       url = "github:omerxx/tmux-sessionx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {
-    nixpkgs,
-    flake-utils,
-    home-manager,
-    brag,
-    session-x,
-    ...
-  } @ inputs:
-    flake-utils.lib.eachSystem ["aarch64-darwin" "x86_64-linux" "aarch64-linux"] (
-      system: let
+  outputs =
+    { nixpkgs
+    , flake-utils
+    , home-manager
+    , brag
+    , ...
+    } @ inputs:
+    flake-utils.lib.eachSystem [ "aarch64-darwin" "x86_64-linux" "aarch64-linux" ] (
+      system:
+      let
         pkgs = import nixpkgs {
           inherit system;
+          overlays = [ (import ./overlay.nix inputs) ];
         };
         mkHomeManagerConfig = module: name:
           home-manager.lib.homeManagerConfiguration {
@@ -41,7 +46,7 @@
             ];
 
             extraSpecialArgs = {
-              inherit inputs system brag session-x name;
+              inherit inputs system brag name;
             };
           };
         homeConfigurations = {
@@ -49,28 +54,22 @@
           lakeview = mkHomeManagerConfig ./users/lakeview.nix "lakeview";
           work = mkHomeManagerConfig ./users/work.nix "work";
         };
-      in {
+      in
+      {
         apps.switch =
           nixpkgs.lib.mapAttrs
-          (
-            name: config:
-              flake-utils.lib.mkApp {
-                drv = config.activationPackage;
-                exePath = "/activate";
-              }
-          )
-          homeConfigurations;
+            (
+              name: config:
+                flake-utils.lib.mkApp {
+                  drv = config.activationPackage;
+                  exePath = "/activate";
+                }
+            )
+            homeConfigurations;
 
-        tmux-jump = pkgs.tmuxPlugins.mkTmuxPlugin {
-          pluginName = "tmux-jump";
-          version = "2024-02";
-          src = pkgs.fetchFromGitHub {
-            owner = "schasse";
-            repo = "tmux-jump";
-            rev = "2ff4940f043cd4ad80fa25c6efa33063fb3b386b";
-            sha256 = "sha256-zgFQKQgESThZGoLRjqZGjxeu/C0HMduUOr7jcgELM7s=";
-          };
-        };
+        inherit homeConfigurations;
+
+        inherit pkgs;
       }
     );
 }
