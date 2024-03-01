@@ -1,10 +1,8 @@
-{
-  config,
-  pkgs,
-  brag,
-  session-x,
-  system,
-  ...
+{ config
+, pkgs
+, brag
+, system
+, ...
 }: {
   imports = [
     ./lite.nix

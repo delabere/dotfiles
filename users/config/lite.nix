@@ -1,11 +1,10 @@
+{ config
+, pkgs
+, brag
+, system
+, ...
+}:
 {
-  config,
-  pkgs,
-  brag,
-  session-x,
-  system,
-  ...
-}: {
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -20,8 +19,7 @@
       "x86_64-linux" = "/home/${config.home.username}";
       "aarch64-darwin" = "/Users/${config.home.username}";
       "aarch64-linux" = "/home/${config.home.username}";
-    }
-    .${system};
+    }.${system};
 
   programs = {
     zsh = {
@@ -94,12 +92,14 @@
       escapeTime = 10;
       terminal = "screen-256color";
 
-      plugins = with pkgs; [
-        tmuxPlugins.vim-tmux-navigator
-        tmuxPlugins.power-theme
-        tmuxPlugins.resurrect
-        tmuxPlugins.continuum
-        session-x.packages.${system}.default
+      plugins = with pkgs.tmuxPlugins; [
+        continuum
+        power-theme
+        prefix-highlight
+        resurrect
+        session-x
+        tmux-jump
+        vim-tmux-navigator
       ];
 
       extraConfig = ''
@@ -162,7 +162,7 @@
     watch
     xclip
     (nerdfonts.override {
-      fonts = ["JetBrainsMono" "Iosevka" "FiraCode" "Hack"];
+      fonts = [ "JetBrainsMono" "Iosevka" "FiraCode" "Hack" ];
     })
   ];
 }
